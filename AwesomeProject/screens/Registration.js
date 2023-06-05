@@ -1,11 +1,11 @@
-import React from "react";
 import {
   View,
   ImageBackground,
   StyleSheet,
   Text,
   TextInput,
-  Button,
+  TouchableOpacity,
+  StatusBar,
 } from "react-native";
 
 export const RegistrationScreen = () => {
@@ -34,9 +34,15 @@ export const RegistrationScreen = () => {
             placeholder="Пароль"
             inputMode="text"
           />
-          <Button style={styles.buttonReg} title="Зареєстуватися" />
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Зареєстуватися</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.loginLink}>
+            <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
+      <StatusBar style="auto" />
     </View>
   );
 };
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
   },
-  buttonReg: {
+  button: {
     backgroundColor: "#FF6C00",
     height: 50,
     width: 343,
@@ -113,5 +119,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 100,
     marginTop: 44,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: 16,
+  },
+  loginLink: {
+    marginTop: 16,
+    marginBottom: 66,
+  },
+  loginLinkText: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
   },
 });
