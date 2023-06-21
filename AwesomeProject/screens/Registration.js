@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import Icon from "@expo/vector-icons/Feather";
 import {
   View,
   ImageBackground,
@@ -6,50 +8,97 @@ import {
   TextInput,
   TouchableOpacity,
   StatusBar,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  SafeAreaView,
+  Image,
 } from "react-native";
 
 export const RegistrationScreen = () => {
+  const [text, setText] = useState("");
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../assets/PhotoBG.jpg")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View style={styles.box}>
-          <View style={styles.boxPhoto}></View>
-          <Text style={styles.title}>Реєстрація</Text>
-          <TextInput
-            style={styles.inputLogin}
-            placeholder="Логін"
-            inputMode="text"
-          />
-          <TextInput
-            style={styles.inputMail}
-            placeholder="Адреса електронної пошти"
-            inputMode="email"
-          />
-          <TextInput
-            style={styles.inputPassword}
-            placeholder="Пароль"
-            inputMode="text"
-          />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Зареєстуватися</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.loginLink}>
-            <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-      <StatusBar style="auto" />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.mainContainer}>
+        <ImageBackground
+          source={require("../assets/PhotoBG.jpg")}
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={styles.keyboard}
+          >
+            <View style={styles.container}>
+              <View style={styles.box}>
+                <Image
+                  style={styles.avatar}
+                  source={require("../assets/avatar.png")}
+                />
+                <Icon
+                  name="plus"
+                  size={20}
+                  color="#FF6C00"
+                  style={{ transform: [{ rotate: "-45deg" }] }}
+                />
+              </View>
+              <Text style={styles.title}>Реєстрація</Text>
+              <View style={styles.form}>
+                <TextInput
+                  style={styles.inputLogin}
+                  placeholder="Логін"
+                  inputMode="text"
+                  value={text}
+                  onChangeText={setText}
+                  placeholderTextColor="#BDBDBD"
+                />
+                <TextInput
+                  style={styles.inputMail}
+                  placeholder="Адреса електронної пошти"
+                  inputMode="email"
+                />
+                <TextInput
+                  style={styles.inputPassword}
+                  placeholder="Пароль"
+                  inputMode="text"
+                />
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>Зареєстуватися</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity style={styles.loginLink}>
+                <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
+              </TouchableOpacity>
+              <StatusBar style="auto" />
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
+    justifyContent: "center",
+    width: "100%",
+  },
+  container: {
+    alignItems: "center",
+    width: "100%",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    backgroundColor: "#fff",
+  },
+  keyboard: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    height: "100%",
+    width: "100%",
   },
   image: {
     flex: 1,
@@ -57,23 +106,33 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   box: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 25,
-    height: 549,
-    alignItems: "center",
-  },
-  boxPhoto: {
-    marginTop: -60,
-    height: 120,
+    position: "relative",
+    top: -60,
+    alignSelf: "center",
     width: 120,
+    height: 120,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
+  },
+  avatar: {
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
+    width: 120,
+    height: 120,
   },
   title: {
     fontWeight: "500",
     fontSize: 30,
     marginTop: 32,
     lineHeight: 35,
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    gap: 16,
+    width: "100%",
+    backgroundColor: "transparent",
   },
   inputLogin: {
     backgroundColor: "#F6F6F6",
